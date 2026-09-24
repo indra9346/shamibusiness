@@ -34,7 +34,7 @@ export const Route = createFileRoute("/product/$id")({
 
 function ProductDetail() {
   const { product } = Route.useLoaderData();
-  const { addToCart, toggleWishlist, wishlist } = useApp();
+  const { addToCart, clearCart, toggleWishlist, wishlist } = useApp();
   const [qty, setQty] = useState(1);
   const [active, setActive] = useState(0);
   const vendor = vendors.find((v) => v.id === product.vendorId)!;
@@ -127,7 +127,10 @@ function ProductDetail() {
             <Link
               to="/checkout"
               search={{ productId: product.id }}
-              onClick={() => addToCart(product.id, qty)}
+              onClick={() => {
+                clearCart();
+                addToCart(product.id, qty);
+              }}
               className={cn(
                 "flex-1 rounded-md bg-gold px-6 py-3.5 text-center text-sm font-bold text-midnight transition-colors hover:bg-gold-light sm:flex-none",
                 product.stock === 0 && "pointer-events-none opacity-40",
