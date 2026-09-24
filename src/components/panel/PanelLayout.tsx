@@ -34,7 +34,7 @@ export function PanelLayout({
     <div className={cn("flex h-full w-64 flex-col", sidebarBg)}>
       <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
         <Link to="/" className="flex items-center">
-          <LogoMark className="h-9 brightness-0 invert-[0.97]" />
+          <LogoMark className="h-9" />
         </Link>
         <button onClick={() => setOpen(false)} className="text-white/60 lg:hidden" aria-label="Close menu">
           <X className="h-5 w-5" />
