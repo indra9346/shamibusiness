@@ -6,7 +6,7 @@ import { useApp } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
 export function ProductCard({ product }: { product: Product }) {
-  const { addToCart, toggleWishlist, wishlist } = useApp();
+  const { addToCart, clearCart, toggleWishlist, wishlist } = useApp();
   const off = Math.round(((product.mrp - product.price) / product.mrp) * 100);
   const wished = wishlist.includes(product.id);
 
@@ -83,7 +83,10 @@ export function ProductCard({ product }: { product: Product }) {
           <Link
             to="/checkout"
             search={{ productId: product.id }}
-            onClick={() => addToCart(product.id)}
+            onClick={() => {
+              clearCart();
+              addToCart(product.id);
+            }}
             className={cn(
               "flex flex-1 items-center justify-center rounded-md bg-gold px-3 py-2.5 text-xs font-bold text-midnight transition-colors hover:bg-gold-light",
               product.stock === 0 && "pointer-events-none opacity-40",

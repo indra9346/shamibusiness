@@ -126,7 +126,7 @@ function Index() {
 }
 
 function HomeProductCard({ product }: { product: Product }) {
-  const { addToCart } = useApp();
+  const { addToCart, clearCart } = useApp();
   const { t } = useLanguage();
   const navigate = useNavigate();
   const discount = Math.round(((product.mrp - product.price) / product.mrp) * 100);
@@ -137,6 +137,7 @@ function HomeProductCard({ product }: { product: Product }) {
   };
 
   const buy = () => {
+    clearCart();
     addToCart(product.id);
     navigate({ to: "/checkout", search: { productId: product.id } });
   };
