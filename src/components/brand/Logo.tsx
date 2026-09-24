@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/grainbazar-logo.png.asset.json";
 import { cn } from "@/lib/utils";
+
+const logoSrc = "/grainbazar-logo.webp";
 
 export function Logo({
   to = "/",
@@ -17,7 +18,7 @@ export function Logo({
       aria-label="GrainBazar home"
     >
       <img
-        src={logo.url}
+        src={logoSrc}
         alt="GrainBazar — Your Business, Our Support"
         width={512}
         height={512}
@@ -36,7 +37,7 @@ export function Logo({
 export function LogoMark({ className }: { className?: string }) {
   return (
     <img
-      src={logo.url}
+      src={logoSrc}
       alt="GrainBazar"
       width={512}
       height={512}
