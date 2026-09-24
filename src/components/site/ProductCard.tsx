@@ -90,7 +90,7 @@ export function ProductCard({ product }: { product: Product }) {
               navigate({ to: "/checkout", search: { productId: product.id } });
             }}
           >
-            <span className="flex h-full items-center justify-center rounded-md bg-gold px-3 py-2.5 text-xs font-bold text-midnight transition-colors hover:bg-gold-light">
+            <span className="flex h-full cursor-pointer items-center justify-center rounded-md bg-gold px-3 py-2.5 text-xs font-bold text-midnight transition-colors hover:bg-gold-light">
               Buy Now
             </span>
           </BuyNowDialog>

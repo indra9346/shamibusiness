@@ -164,7 +164,7 @@ function HomeProductCard({ product }: { product: Product }) {
             <ShoppingCart /> Add
           </Button>
           <BuyNowDialog product={product} onConfirm={buy}>
-            <span className="flex h-9 items-center justify-center px-2 font-bold">Buy Now</span>
+            <span className="flex h-9 cursor-pointer items-center justify-center px-2 font-bold">Buy Now</span>
           </BuyNowDialog>
         </div>
       </div>

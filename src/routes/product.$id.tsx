@@ -135,7 +135,7 @@ function ProductDetail() {
                 navigate({ to: "/checkout", search: { productId: product.id } });
               }}
             >
-              <span className="flex justify-center rounded-md bg-gold px-6 py-3.5 text-center text-sm font-bold text-midnight transition-colors hover:bg-gold-light sm:flex-none">
+              <span className="flex cursor-pointer justify-center rounded-md bg-gold px-6 py-3.5 text-center text-sm font-bold text-midnight transition-colors hover:bg-gold-light sm:flex-none">
                 Buy Now
               </span>
             </BuyNowDialog>
