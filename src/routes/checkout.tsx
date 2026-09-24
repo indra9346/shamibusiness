@@ -36,6 +36,7 @@ function Checkout() {
   const [placedId, setPlacedId] = useState<string | null>(null);
   const selectedProduct = productId ? products.find((p) => p.id === productId) : undefined;
   const checkoutItems = productId ? cartItems.filter((line) => line.product.id === productId) : cartItems;
+  const checkoutProduct = selectedProduct ?? checkoutItems[0]?.product;
   const subtotal = checkoutItems.reduce((sum, line) => sum + line.product.price * line.qty, 0);
   const shipCost = ship === "Express" ? 650 : subtotal > 10000 ? 0 : 250;
   const tax = Math.round(subtotal * 0.05);
@@ -78,7 +79,7 @@ function Checkout() {
         <div className="mx-auto max-w-7xl px-6 py-8">
           <Breadcrumbs items={[{ label: "Cart", to: "/cart" }, { label: "Checkout" }]} />
           <h1 className="mt-3 text-3xl font-bold text-navy">
-            {selectedProduct ? `${selectedProduct.name} — CHECKOUT` : "Checkout"}
+            {checkoutProduct ? `${checkoutProduct.name} — CHECKOUT` : "Checkout"}
           </h1>
         </div>
       </div>
