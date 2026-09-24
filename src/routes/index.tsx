@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { inr, isStorefrontProduct, storeCategorySeed, type Product } from "@/lib/data";
 import { useApp } from "@/lib/store";
 import { useLanguage } from "@/lib/i18n";
+import { BuyNowDialog } from "@/components/site/BuyNowDialog";
 import heroImg from "@/assets/hero-sugar.jpg";
 
 export const Route = createFileRoute("/")({
@@ -162,9 +163,9 @@ function HomeProductCard({ product }: { product: Product }) {
           <Button type="button" variant="outline" size="sm" onClick={add} disabled={product.stock === 0} className="h-9 px-2 font-bold">
             <ShoppingCart /> Add
           </Button>
-          <Button type="button" size="sm" onClick={buy} disabled={product.stock === 0} className="h-9 px-2 font-bold">
-            Buy Now
-          </Button>
+          <BuyNowDialog product={product} onConfirm={buy}>
+            <span className="flex h-9 items-center justify-center px-2 font-bold">Buy Now</span>
+          </BuyNowDialog>
         </div>
       </div>
     </article>

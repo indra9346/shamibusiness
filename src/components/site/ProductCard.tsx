@@ -1,12 +1,14 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Heart, ShoppingCart, Star } from "lucide-react";
 import { toast } from "sonner";
 import { inr, type Product } from "@/lib/data";
 import { useApp } from "@/lib/store";
 import { cn } from "@/lib/utils";
+import { BuyNowDialog } from "@/components/site/BuyNowDialog";
 
 export function ProductCard({ product }: { product: Product }) {
   const { addToCart, clearCart, toggleWishlist, wishlist } = useApp();
+  const navigate = useNavigate();
   const off = Math.round(((product.mrp - product.price) / product.mrp) * 100);
   const wished = wishlist.includes(product.id);
 
@@ -80,20 +82,18 @@ export function ProductCard({ product }: { product: Product }) {
           >
             <ShoppingCart className="h-3.5 w-3.5" /> Add
           </button>
-          <Link
-            to="/checkout"
-            search={{ productId: product.id }}
-            onClick={() => {
+          <BuyNowDialog
+            product={product}
+            onConfirm={() => {
               clearCart();
               addToCart(product.id);
+              navigate({ to: "/checkout", search: { productId: product.id } });
             }}
-            className={cn(
-              "flex flex-1 items-center justify-center rounded-md bg-gold px-3 py-2.5 text-xs font-bold text-midnight transition-colors hover:bg-gold-light",
-              product.stock === 0 && "pointer-events-none opacity-40",
-            )}
           >
-            Buy Now
-          </Link>
+            <span className="flex h-full items-center justify-center rounded-md bg-gold px-3 py-2.5 text-xs font-bold text-midnight transition-colors hover:bg-gold-light">
+              Buy Now
+            </span>
+          </BuyNowDialog>
         </div>
       </div>
     </article>

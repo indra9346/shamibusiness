@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Heart, Minus, Plus, ShieldCheck, Star, Truck, Store } from "lucide-react";
 import { toast } from "sonner";
@@ -8,6 +8,7 @@ import { inr, isStorefrontProduct, products, reviews, vendors } from "@/lib/data
 import { useApp } from "@/lib/store";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+import { BuyNowDialog } from "@/components/site/BuyNowDialog";
 
 export const Route = createFileRoute("/product/$id")({
   loader: ({ params }) => {
@@ -35,6 +36,7 @@ export const Route = createFileRoute("/product/$id")({
 function ProductDetail() {
   const { product } = Route.useLoaderData();
   const { addToCart, clearCart, toggleWishlist, wishlist } = useApp();
+  const navigate = useNavigate();
   const [qty, setQty] = useState(1);
   const [active, setActive] = useState(0);
   const vendor = vendors.find((v) => v.id === product.vendorId)!;
@@ -124,20 +126,19 @@ function ProductDetail() {
             >
               Add to Cart
             </button>
-            <Link
-              to="/checkout"
-              search={{ productId: product.id }}
-              onClick={() => {
+            <BuyNowDialog
+              product={product}
+              quantity={qty}
+              onConfirm={() => {
                 clearCart();
                 addToCart(product.id, qty);
+                navigate({ to: "/checkout", search: { productId: product.id } });
               }}
-              className={cn(
-                "flex-1 rounded-md bg-gold px-6 py-3.5 text-center text-sm font-bold text-midnight transition-colors hover:bg-gold-light sm:flex-none",
-                product.stock === 0 && "pointer-events-none opacity-40",
-              )}
             >
-              Buy Now
-            </Link>
+              <span className="flex justify-center rounded-md bg-gold px-6 py-3.5 text-center text-sm font-bold text-midnight transition-colors hover:bg-gold-light sm:flex-none">
+                Buy Now
+              </span>
+            </BuyNowDialog>
             <button
               onClick={() => toggleWishlist(product.id)}
               aria-label="Wishlist"
